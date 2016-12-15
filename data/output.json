@@ -6225,7 +6225,7 @@
             0
           ],
           "properties": {
-            "Name": "B-11",
+            "Name": "Vasant Kunj",
             "description": null,
             "timestamp": null,
             "begin": null,
@@ -6246,7 +6246,7 @@
             0
           ],
           "properties": {
-            "Name": "Central Secretariat",
+            "Name": "C-Sec",
             "description": null,
             "timestamp": null,
             "begin": null,
@@ -6388,7 +6388,7 @@
           ],
           "properties": {
             "Name": "Dhaula Kuan",
-            "description": null,
+            "description": "optional",
             "timestamp": null,
             "begin": null,
             "end": null,

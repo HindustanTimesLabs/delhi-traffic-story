@@ -28,6 +28,10 @@ a{
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    @media(max-width: 600px){
+        width: 100%;
+        height: auto;
+    }
 }
 
 .hide-desktop{
@@ -361,23 +365,42 @@ text-align: center;
         text-align: center;
     }
     .year-block{
-        display: inline-block;
-        margin-right: 1em;
-        margin-left: 1em;
+        margin-right: auto;
+        margin-left: auto;
         padding: 0.6em;
         border: 1px solid; 
         border-radius: 4px;
-        min-width: 120px;
+        color: #fff;
+        max-width: 300px;
+        width: 95%;
         p{
             margin-bottom: 0;
+                margin-left: auto;
+                margin-right: auto;
         }
+
         @media(max-width: 450px){
             margin-right: 0.3em;
-        margin-left: 0.3em;
+            margin-left: 0.3em;
+            padding: 0.3em;
+            p{
+                font-size: 0.9em;
+            }
         }
     }
     .year{
         font-weight: bold;
+        font-size: 1.2em;
+
+    }
+    .year-block.y2012{
+        background-color: #EE413B
+    }
+    .year-block.y2014{
+        background-color: #249681
+    }
+    .year-block.y2016{
+        background-color: #2E4D5D
     }
 }
 
@@ -398,18 +421,20 @@ text-align: center;
 
 .route-container{
     .title{
-        font-size: 1.3em;
+        font-size: 1.5em;
         margin-bottom: 0.4em;
         font-weight: bold;
         color: $primary;
     }
+    
     .route-dist{
-        font-size: 1.1em;
-        margin-bottom: 0.5em;
+        font-size: 1.2em;
+        margin-bottom: 0.8em;
+        font-style: italic;
     }
 
     .chart{
-        margin: 1em;
+        margin: 1em 0;
     }
     .place-label{
         font-size: 0.8em;
@@ -421,4 +446,9 @@ text-align: center;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    .place-label.optional{
+        @media(max-width: 400px){
+            display: none;
+        }
+    }
 }

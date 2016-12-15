@@ -176,9 +176,10 @@
 	    .projection(projection)
 	    .pointRadius(2);
 	var mapwidth = (windowwidth>450)?500:windowwidth*0.9;
-	var mapheight = 300
+	var mapheight = (windowwidth>450)?300:250
 	var timefactor = 0.005
 	
+	var margin = {top: 20, bottom: 20, left: 10, right: 80}
 	
 	d3.json('data/output.json',function(error, data){
 	    d3.select('.interactive')
@@ -217,21 +218,25 @@
 	        })
 	        .enter()
 	        .append('div')
-	        .attr('class','year-block')
-	        .append('h3')
-	        .attr('class','year')
-	        .style('color',function(d){return color[d.year]})
-	        .text(function(d){return d.year})
+	        .attr('class',function(d){return 'year-block '+'y'+d.year})
+	        .append('p')
+	        .append('span')
+	        .attr('class',function(d){return 'year'})
+	        .text(function(d){return d.year+": "})
 	
-	    d3.selectAll('.year-block')
-	    .append('p')
-	    .attr('class','time')
-	    .html('0 mins')
+	    d3.selectAll('.year-block p')
+	        .append('span')
+	        .attr('class','distance')
+	        .html('0 kms')
+	    d3.selectAll('.year-block p')
+	        .append('span')
+	        .html(' in ')
+	    d3.selectAll('.year-block p')
+	        .append('span')
+	        .attr('class','time')
+	        .html('0 mins')
 	
-	    d3.selectAll('.year-block')
-	    .append('p')
-	    .attr('class','distance')
-	    .html('<span class = "distance-num">0</span> kms')
+	
 	
 	    var svg = d3.selectAll('.chart')
 	        .append('svg')
@@ -241,10 +246,15 @@
 	  $('.reset').on('click',function(){
 	    var id = $(this).parent().attr('id')
 	    reset(id)
-	
 	  })
 	
 	  function reset(id){
+	        d3.selectAll('#'+id+' .time')
+	            .text('0 mins')
+	
+	     d3.selectAll('#'+id+' .distance')
+	            .text('0 kms')
+	
 	    d3.selectAll('#'+id+' .marker')
 	            .transition()
 	            .duration(0)
@@ -256,6 +266,8 @@
 	    clearInterval( maps[index]['data'][1]['setInterval']);
 	    clearInterval( maps[index]['data'][2]['setInterval']);
 	    UpdateDistanceTimeTag(index);
+	
+	
 	  }
 	
 	  maps.forEach(function(e,i){
@@ -272,8 +284,8 @@
 	                .translate([0, 0]);
 	
 	            var b = pathf.bounds(o),
-	                s = 1 / Math.max((b[1][0] - b[0][0]) / mapwidth, (b[1][1] - b[0][1]) / mapheight),
-	                t = [(mapwidth - s * (b[1][0] + b[0][0])) / 2, (mapheight - s * (b[1][1] + b[0][1])) / 2];
+	                s = 1 / Math.max((b[1][0] - b[0][0]) / (mapwidth-margin.left-margin.right), (b[1][1] - b[0][1]) / (mapheight-margin.top-margin.bottom)),
+	                t = [((mapwidth-margin.left-margin.right) - s * (b[1][0] + b[0][0])) / 2, ((mapheight-margin.top-margin.bottom) - s * (b[1][1] + b[0][1])) / 2];
 	
 	            projection
 	                .scale(s)
@@ -285,6 +297,7 @@
 	            var boundary = centerZoom(data);
 	            var svg = d3.select('#'+id+' svg')
 	            var g = svg.append('g')
+	            .attr('transform','translate('+margin.left+','+margin.top+')')
 	            .attr('class','route-c')
 	
 	            var path = g.append("path")
@@ -312,13 +325,15 @@
 	
 	                g.selectAll(".place-label-bg")
 	                    .data(topojson.feature(data, data.objects['p'+id.split('id')[1]]).features)
-	                  .enter().append("text")
-	                    .attr("class", "place-label")
+	                  .enter()
+	                    .append("text")
+	                    .text('')
+	                    .attr("class", function(d){if (d.properties.description=="optional"){return "place-label optional"}else{return "place-label"}})
 	                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
-	                    .attr("dy", ".35em")
-	                    .attr("x", 6)
+	                    .attr("dy", "0.1em")
+	                    .attr("x", 5)
 	                    .style("text-anchor", "start")
-	                    .text(function(d) { return d.properties['Name']; });
+	                    .tspans( function(d){return d3.wordwrap(d.properties['Name'], 10)},"1em") //wrap after 20 char
 	    }
 	})
 	
@@ -400,8 +415,38 @@
 	
 	}
 	
+	d3.selection.prototype.tspans = function(lines, lh) {
+	              return this.selectAll('tspan')
+	                  .data(lines)
+	                  .enter()
+	                  .append('tspan')
+	                  .text(function(d) { return d; })
+	                  .attr('x', 5)
+	                  .attr('dy', function(d,i) { return i ? lh || 15 : 0; });
+	          };
 	
-
+	
+	
+	d3.wordwrap = function(line, maxCharactersPerLine) {
+	              var w = line.split(' '),
+	                  lines = [],
+	                  words = [],
+	                  maxChars = maxCharactersPerLine || 40,
+	                  l = 0;
+	              w.forEach(function(d) {
+	                  if (l+d.length > maxChars) {
+	                      lines.push(words.join(' '));
+	                      words.length = 0;
+	                      l = 0;
+	                  }
+	                  l += d.length;
+	                  words.push(d);
+	              });
+	              if (words.length) {
+	                  lines.push(words.join(' '));
+	              }
+	              return lines;
+	          };
 
 /***/ },
 /* 1 */
