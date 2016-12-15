@@ -195,6 +195,7 @@ d3.json('data/output.json',function(error, data){
   $('.reset').on('click',function(){
     var id = $(this).parent().attr('id')
     reset(id)
+
   })
 
   function reset(id){
@@ -204,6 +205,11 @@ d3.json('data/output.json',function(error, data){
             .attr('transform','translate(0,0)')
     
     transition(id,d3.select('#'+id+' .route'));
+    var index = parseInt(id.split('id')[1])
+    clearInterval( maps[index]['data'][0]['setInterval']);
+    clearInterval( maps[index]['data'][1]['setInterval']);
+    clearInterval( maps[index]['data'][2]['setInterval']);
+    UpdateDistanceTimeTag(index);
   }
 
   maps.forEach(function(e,i){
