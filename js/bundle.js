@@ -256,6 +256,8 @@
 	    drawmap('id'+i,e.name)
 	  })
 	
+	  drawPlaces()
+	
 	    function drawmap(id,key){
 	
 	        function centerZoom(data){
@@ -300,6 +302,22 @@
 	
 	            transition(id,path);
 	            UpdateDistanceTimeTag(+id.split('id')[1]);
+	
+	        function drawPlaces(){
+	        g.append("path")
+	        .datum(topojson.feature(data, data.objects.places))
+	        .attr("d", path);
+	
+	                g.selectAll(".place-label-bg")
+	                    .data(topojson.feature(data, data.objects.places).features)
+	                  .enter().append("text")
+	                    .attr("class", "place-label")
+	                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+	                    .attr("dy", ".35em")
+	                    .attr("x", 6)
+	                    .style("text-anchor", "start")
+	                    .text(function(d) { return d.properties.name; });
+	            }
 	    }
 	})
 	
@@ -320,50 +338,47 @@
 	}
 	}
 	
-	var delay=500;
-	var setIntervalIndex=[];
+	var delay=1000;
 	function UpdateDistanceTimeTag(index){
-	    var counter=[1,1,1];
-	    time1=CreateArr(0,maps[index]['data'][0].time,(maps[index]['data'][0].time*60*1000*timefactor)/delay);
-	    time2=CreateArr(0,maps[index]['data'][1].time,(maps[index]['data'][1].time*60*1000*timefactor)/delay);
-	    time3=CreateArr(0,maps[index]['data'][2].time,(maps[index]['data'][2].time*60*1000*timefactor)/delay);
-	    dist1=CreateArr(1,maps[index]['data'][0].dist,(maps[index]['data'][0].time*60*1000*timefactor)/delay);
-	    dist2=CreateArr(1,maps[index]['data'][1].dist,(maps[index]['data'][1].time*60*1000*timefactor)/delay);
-	    dist3=CreateArr(1,maps[index]['data'][2].dist,(maps[index]['data'][2].time*60*1000*timefactor)/delay);
+	    maps[index]['counter'] = [1,1,1]
+	    maps[index].time1=CreateArr(0,maps[index]['data'][0].time,(maps[index]['data'][0].time*60*1000*timefactor)/delay);
+	    maps[index].time2=CreateArr(0,maps[index]['data'][1].time,(maps[index]['data'][1].time*60*1000*timefactor)/delay);
+	    maps[index].time3=CreateArr(0,maps[index]['data'][2].time,(maps[index]['data'][2].time*60*1000*timefactor)/delay);
+	    maps[index].dist1=CreateArr(1,maps[index]['data'][0].dist,(maps[index]['data'][0].time*60*1000*timefactor)/delay);
+	    maps[index].dist2=CreateArr(1,maps[index]['data'][1].dist,(maps[index]['data'][1].time*60*1000*timefactor)/delay);
+	    maps[index].dist3=CreateArr(1,maps[index]['data'][2].dist,(maps[index]['data'][2].time*60*1000*timefactor)/delay);
 	
-	    setIntervalIndex[(index*3)+0]=window.setInterval(test0,delay)
-	    setIntervalIndex[(index*3)+1]=window.setInterval(test1,delay)
-	    setIntervalIndex[(index*3)+2]=window.setInterval(test2,delay)
+	    maps[index]['data'][0]['setInterval']=window.setInterval(test0,delay)
+	    maps[index]['data'][1]['setInterval']=window.setInterval(test1,delay)
+	    maps[index]['data'][2]['setInterval']=window.setInterval(test2,delay)
 	
 	    function test0(){
-	        
-	
-	        if(counter[0]>=time1.length){
-	            clearInterval(setIntervalIndex[(index*3)+0]);
+	        if(maps[index]['counter'][0]>=maps[index].time1.length){
+	            clearInterval( maps[index]['data'][0]['setInterval']);
 	        }else{
-	            $($("#id"+index+" .time")[0]).html(time1[counter[0]] + " mins");
-	            $($("#id"+index+" .distance")[0]).html(dist1[counter[0]] + " kms");
-	            counter[0]=counter[0]+1;
+	            $($("#id"+index+" .time")[0]).html(maps[index].time1[maps[index]['counter'][0]] + " mins");
+	            $($("#id"+index+" .distance")[0]).html(maps[index].dist1[maps[index]['counter'][0]] + " kms");
+	            maps[index]['counter'][0]=maps[index]['counter'][0]+1;
 	        }
 	    }
 	
 	    function test1(){     
-	        if(counter[1]>=time2.length){
-	            clearInterval(setIntervalIndex[(index*3)+1]);
+	        if(maps[index]['counter'][1]>=maps[index].time2.length){
+	            clearInterval( maps[index]['data'][1]['setInterval']);
 	        }else{
-	            $($("#id"+index+" .time")[1]).html(time2[counter[1]] + " mins");
-	            $($("#id"+index+" .distance")[1]).html(dist2[counter[1]] + " kms");
-	            counter[1]=counter[1]+1;
+	            $($("#id"+index+" .time")[1]).html(maps[index].time2[maps[index]['counter'][1]] + " mins");
+	            $($("#id"+index+" .distance")[1]).html(maps[index].dist2[maps[index]['counter'][1]] + " kms");
+	            maps[index]['counter'][1]=maps[index]['counter'][1]+1;
 	        }
 	    }
 	
 	    function test2(){ 
-	        if(counter[2]>=time3.length){
-	            clearInterval(setIntervalIndex[(index*3)+2]);
+	        if(maps[index]['counter'][2]>=maps[index].time3.length){
+	            clearInterval( maps[index]['data'][2]['setInterval']);
 	        }else{
-	            $($("#id"+index+" .time")[2]).html(time3[counter[2]] + " mins");
-	            $($("#id"+index+" .distance")[2]).html(dist3[counter[2]] + " kms");
-	            counter[2]=counter[2]+1;
+	            $($("#id"+index+" .time")[2]).html(maps[index].time3[maps[index]['counter'][2]] + " mins");
+	            $($("#id"+index+" .distance")[2]).html(maps[index].dist3[maps[index]['counter'][2]] + " kms");
+	            maps[index]['counter'][2]=maps[index]['counter'][2]+1;
 	        }
 	    }
 	
@@ -383,6 +398,8 @@
 	    }
 	
 	}
+	
+	
 
 
 /***/ },
