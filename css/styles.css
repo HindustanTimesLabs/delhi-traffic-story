@@ -318,18 +318,22 @@ section h2 {
   .interactive .year-block.y2016 {
     background-color: #2E4D5D; }
 
-.reset {
+.button {
   background-color: #262626;
   color: white;
   padding: 0.5em;
   margin: 1em auto;
   width: 100px;
   border: solid 1px #262626;
-  cursor: pointer; }
+  cursor: pointer;
+  display: none; }
 
-.reset:hover {
+.button:hover {
   background-color: #fff;
   color: #262626; }
+
+.button.show {
+  display: block; }
 
 .route-container {
   padding-bottom: 2em;

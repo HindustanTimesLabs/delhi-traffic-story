@@ -158,8 +158,13 @@ d3.json('data/output.json',function(error, data){
 
     d3.selectAll('.route-container')    
         .append('div')
-        .attr('class','reset')
+        .attr('class','reset button ')
         .text('Reset')
+
+    d3.selectAll('.route-container')    
+        .append('div')
+        .attr('class','play button show')
+        .text('Race')
 
     d3.selectAll('.route-container')
         .append('div')
@@ -190,14 +195,12 @@ d3.json('data/output.json',function(error, data){
         .attr('class','time')
         .html('0 mins')
 
-
-
     var svg = d3.selectAll('.chart')
         .append('svg')
         .attr('width',mapwidth)
         .attr('height',mapheight)
 
-  $('.reset').on('click',function(){
+  $('.button').on('click',function(){
     var id = $(this).parent().attr('id')
     reset(id)
   })
@@ -220,8 +223,6 @@ d3.json('data/output.json',function(error, data){
     clearInterval( maps[index]['data'][1]['setInterval']);
     clearInterval( maps[index]['data'][2]['setInterval']);
     UpdateDistanceTimeTag(index);
-
-
   }
 
   maps.forEach(function(e,i){
@@ -271,8 +272,8 @@ d3.json('data/output.json',function(error, data){
                 .style('fill',function(d){return color[d.year]})
                 .attr('class','marker')
 
-            transition(id,path);
-            UpdateDistanceTimeTag(+id.split('id')[1]);
+            // transition(id,path);
+            // UpdateDistanceTimeTag(+id.split('id')[1]);
         g.append("path")
         .datum(topojson.feature(data, data.objects['p'+id.split('id')[1]]))
         .attr("d", pathf);

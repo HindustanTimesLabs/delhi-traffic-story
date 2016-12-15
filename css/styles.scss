@@ -404,7 +404,7 @@ text-align: center;
     }
 }
 
-.reset{
+.button{
     background-color: $nav;
     color: white;
     padding: 0.5em;
@@ -412,11 +412,16 @@ text-align: center;
     width: 100px;
     border: solid 1px $nav;
     cursor: pointer;
+    display: none;
 }
 
-.reset:hover{
+.button:hover{
     background-color: $back;
     color: $nav;
+}
+
+.button.show{
+    display: block;
 }
 
 .route-container{

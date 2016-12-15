@@ -204,8 +204,13 @@
 	
 	    d3.selectAll('.route-container')    
 	        .append('div')
-	        .attr('class','reset')
+	        .attr('class','reset button ')
 	        .text('Reset')
+	
+	    d3.selectAll('.route-container')    
+	        .append('div')
+	        .attr('class','play button show')
+	        .text('Race')
 	
 	    d3.selectAll('.route-container')
 	        .append('div')
@@ -236,14 +241,12 @@
 	        .attr('class','time')
 	        .html('0 mins')
 	
-	
-	
 	    var svg = d3.selectAll('.chart')
 	        .append('svg')
 	        .attr('width',mapwidth)
 	        .attr('height',mapheight)
 	
-	  $('.reset').on('click',function(){
+	  $('.button').on('click',function(){
 	    var id = $(this).parent().attr('id')
 	    reset(id)
 	  })
@@ -266,8 +269,6 @@
 	    clearInterval( maps[index]['data'][1]['setInterval']);
 	    clearInterval( maps[index]['data'][2]['setInterval']);
 	    UpdateDistanceTimeTag(index);
-	
-	
 	  }
 	
 	  maps.forEach(function(e,i){
@@ -317,8 +318,8 @@
 	                .style('fill',function(d){return color[d.year]})
 	                .attr('class','marker')
 	
-	            transition(id,path);
-	            UpdateDistanceTimeTag(+id.split('id')[1]);
+	            // transition(id,path);
+	            // UpdateDistanceTimeTag(+id.split('id')[1]);
 	        g.append("path")
 	        .datum(topojson.feature(data, data.objects['p'+id.split('id')[1]]))
 	        .attr("d", pathf);
