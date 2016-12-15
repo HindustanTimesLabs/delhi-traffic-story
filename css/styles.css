@@ -331,5 +331,8 @@ section h2 {
     margin-bottom: 0.5em; }
   .route-container .chart {
     margin: 1em; }
+  .route-container .place-label {
+    font-size: 0.8em;
+    font-family: "Open Sans", sans-serif; }
 
 /*# sourceMappingURL=styles.css.map*/

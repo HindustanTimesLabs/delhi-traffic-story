@@ -210,8 +210,6 @@ d3.json('data/output.json',function(error, data){
     drawmap('id'+i,e.name)
   })
 
-  drawPlaces()
-
     function drawmap(id,key){
 
         function centerZoom(data){
@@ -250,28 +248,25 @@ d3.json('data/output.json',function(error, data){
                 })
                 .enter()
                 .append('circle')
-                .attr("r", 5)
+                .attr("r", 6)
                 .style('fill',function(d){return color[d.year]})
                 .attr('class','marker')
 
             transition(id,path);
             UpdateDistanceTimeTag(+id.split('id')[1]);
-
-        function drawPlaces(){
         g.append("path")
-        .datum(topojson.feature(data, data.objects.places))
-        .attr("d", path);
+        .datum(topojson.feature(data, data.objects['p'+id.split('id')[1]]))
+        .attr("d", pathf);
 
                 g.selectAll(".place-label-bg")
-                    .data(topojson.feature(data, data.objects.places).features)
+                    .data(topojson.feature(data, data.objects['p'+id.split('id')[1]]).features)
                   .enter().append("text")
                     .attr("class", "place-label")
                     .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
                     .attr("dy", ".35em")
                     .attr("x", 6)
                     .style("text-anchor", "start")
-                    .text(function(d) { return d.properties.name; });
-            }
+                    .text(function(d) { return d.properties['Name']; });
     }
 })
 
