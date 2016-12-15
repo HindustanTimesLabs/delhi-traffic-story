@@ -95,6 +95,9 @@ body{
     font-size: 1.25em;
     line-height: 1.5em;
     color: $text;
+    a{
+        color: $link
+    }
     @media(max-width: 700px){
         padding-top: 2em;
         line-height: 1.8em;
@@ -191,6 +194,7 @@ h3.byline.dateline{
     background-color: $nav;
     width: 100%;
     padding: 0.2em;
+    position: fixed;
     a{
         color: inherit;
     }
@@ -240,7 +244,6 @@ section{
 }
 
 .credits{
-    text-align: center;
     margin-bottom: 2em;
     font-size: 1em;
     font-style: italic;
@@ -405,19 +408,23 @@ text-align: center;
 }
 
 .button{
-    background-color: $nav;
-    color: white;
+    background-color: $back;
+    color: $nav;
     padding: 0.5em;
     margin: 1em auto;
-    width: 100px;
-    border: solid 1px $nav;
+    width: 140px;
+    border: solid 2px $nav;
     cursor: pointer;
+    border-radius: 3px;
     display: none;
+    font-weight: bold;
+    font-family: $block
 }
 
 .button:hover{
-    background-color: $back;
-    color: $nav;
+
+        background-color: $nav;
+    color: white;
 }
 
 .button.show{
@@ -456,4 +463,9 @@ text-align: center;
             display: none;
         }
     }
+
+}
+
+.route-container:last-child{
+    border-bottom: none;
 }

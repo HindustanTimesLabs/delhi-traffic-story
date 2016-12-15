@@ -73,6 +73,8 @@ body {
   font-size: 1.25em;
   line-height: 1.5em;
   color: #3a3a3a; }
+  .copy a {
+    color: #008080; }
   @media (max-width: 700px) {
     .copy {
       padding-top: 2em;
@@ -154,7 +156,8 @@ h3.byline.dateline {
   height: 40px;
   background-color: #262626;
   width: 100%;
-  padding: 0.2em; }
+  padding: 0.2em;
+  position: fixed; }
   .nav a {
     color: inherit; }
   .nav .nav-logo {
@@ -191,7 +194,6 @@ section h2 {
   line-height: 1.4em; }
 
 .credits {
-  text-align: center;
   margin-bottom: 2em;
   font-size: 1em;
   font-style: italic; }
@@ -319,18 +321,21 @@ section h2 {
     background-color: #2E4D5D; }
 
 .button {
-  background-color: #262626;
-  color: white;
+  background-color: #fff;
+  color: #262626;
   padding: 0.5em;
   margin: 1em auto;
-  width: 100px;
-  border: solid 1px #262626;
+  width: 140px;
+  border: solid 2px #262626;
   cursor: pointer;
-  display: none; }
+  border-radius: 3px;
+  display: none;
+  font-weight: bold;
+  font-family: "Open Sans", sans-serif; }
 
 .button:hover {
-  background-color: #fff;
-  color: #262626; }
+  background-color: #262626;
+  color: white; }
 
 .button.show {
   display: block; }
@@ -359,5 +364,8 @@ section h2 {
   @media (max-width: 400px) {
     .route-container .place-label.optional {
       display: none; } }
+
+.route-container:last-child {
+  border-bottom: none; }
 
 /*# sourceMappingURL=styles.css.map*/

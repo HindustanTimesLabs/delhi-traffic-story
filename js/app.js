@@ -12,40 +12,52 @@ var maps = [
         'data': [{
                     'year': 2012,
                     'time': 65,
-                    'dist': 25.05
+                    'dist': 25.05,
+                    'lat':28.60516,
+                    'lng': 77.0489
                 },
 
                 {
                     'year': 2014,
                     'time': 92,
-                    'dist': 25.05
+                    'dist': 25.05,
+                    'lat':28.60516,
+                    'lng': 77.0489
                 },
                 {
                     'year': 2016,
                     'time': 125,
-                    'dist': 25.05
+                    'dist': 25.05,
+                    'lat':28.60516,
+                    'lng': 77.0489
                 }
             ]
     },
     {
         'name': 'mayurvihar-mandihouse',
-        'title':'Eastern bound',
+        'title':'Eastward bound',
         'loc':"Mayur Vihar Phase 1 to Pragati Maidan",
         'data': [{
                     'year': 2012,
                     'time': 52,
-                    'dist': 8.75
+                    'dist': 8.75,
+                    'lat': 28.60928, 
+                    'lng': 77.30298
                 },
 
                 {
                     'year': 2014,
                     'time': 78,
-                    'dist': 8.75
+                    'dist': 8.75,
+                    'lat': 28.60928, 
+                    'lng': 77.30298
                 },
                 {
                     'year': 2016,
                     'time': 105,
-                    'dist': 8.75
+                    'dist': 8.75,
+                    'lat': 28.60928, 
+                    'lng': 77.30298
                 }
             ]
     },
@@ -57,39 +69,53 @@ var maps = [
         'data': [{
                     'year': 2012,
                     'time': 45,
-                    'dist': 15.1
+                    'dist': 15.1,
+                    'lat': 28.53218,
+                    'lng': 77.15176
                 },
 
                 {
                     'year': 2014,
                     'time': 80,
-                    'dist': 15.1
+                    'dist': 15.1,
+                    'lat': 28.53218,
+                    'lng': 77.15176
                 },
                 {
                     'year': 2016,
                     'time': 112,
-                    'dist': 15.1
+                    'dist': 15.1,
+                    'lat': 28.53218,
+                    'lng': 77.15176
                 }
             ]
     },
     {
         'name': 'vasantkunj-cp',
-        'title':'Vasant Kunj to Connaught Place',
+        'title':'Cutting through the Ring Roads',
+        'loc':'Vasant Kunj to Connaught Place',
+
         'data': [{
                     'year': 2012,
                     'time': 48.4,
-                    'dist': 18.2
+                    'dist': 18.2,
+                    'lat': 28.5374,
+                    'lng': 77.14985
                 },
 
                 {
                     'year': 2014,
                     'time': 55.6,
-                    'dist': 18.2
+                    'dist': 18.2,
+                    'lat': 28.5374,
+                    'lng': 77.14985
                 },
                 {
                     'year': 2016,
                     'time': 88,
-                    'dist': 18.2
+                    'dist': 18.2,
+                    'lat': 28.5374,
+                    'lng': 77.14985
                 }
             ]
     },
@@ -101,18 +127,24 @@ var maps = [
         'data': [{
                     'year': 2012,
                     'time': 15.8,
-                    'dist': 10.08
+                    'dist': 10.08,
+                    'lat': 28.54637,
+                    'lng': 77.2436 
                 },
 
                 {
                     'year': 2014,
                     'time': 25,
-                    'dist': 10.08
+                    'dist': 10.08,
+                    'lat': 28.54637,
+                    'lng': 77.2436 
                 },
                 {
                     'year': 2016,
                     'time': 45,
-                    'dist': 10.08
+                    'dist': 10.08,
+                    'lat': 28.54637,
+                    'lng': 77.2436 
                 }
             ]
     }
@@ -152,11 +184,7 @@ d3.json('data/output.json',function(error, data){
         .attr('class','route-dist')
         .text(function(d){return d.loc})
 
-    d3.selectAll('.route-container')    
-        .append('div')
-        .attr('class','legend')
-
-    d3.selectAll('.route-container')    
+        d3.selectAll('.route-container')    
         .append('div')
         .attr('class','reset button ')
         .text('Reset')
@@ -164,7 +192,11 @@ d3.json('data/output.json',function(error, data){
     d3.selectAll('.route-container')    
         .append('div')
         .attr('class','play button show')
-        .text('Race')
+        .text('Start the race')
+
+    d3.selectAll('.route-container')    
+        .append('div')
+        .attr('class','legend')
 
     d3.selectAll('.route-container')
         .append('div')
@@ -200,6 +232,12 @@ d3.json('data/output.json',function(error, data){
         .attr('width',mapwidth)
         .attr('height',mapheight)
 
+$('.play.button').on('click',function(){
+    console.log('yay')
+    $(this).removeClass('show')
+    $(this).parent().find('.reset').addClass('show')
+  })
+
   $('.button').on('click',function(){
     var id = $(this).parent().attr('id')
     reset(id)
@@ -215,7 +253,7 @@ d3.json('data/output.json',function(error, data){
     d3.selectAll('#'+id+' .marker')
             .transition()
             .duration(0)
-            .attr('transform','translate(0,0)')
+            .attr('transform',function(d){return 'translate(0,0)'})
     
     transition(id,d3.select('#'+id+' .route'));
     var index = parseInt(id.split('id')[1])
@@ -270,10 +308,9 @@ d3.json('data/output.json',function(error, data){
                 .append('circle')
                 .attr("r", 6)
                 .style('fill',function(d){return color[d.year]})
+                .attr('transform',function(d){return 'translate('+projection([d.lng,d.lat])+")"})
                 .attr('class','marker')
 
-            // transition(id,path);
-            // UpdateDistanceTimeTag(+id.split('id')[1]);
         g.append("path")
         .datum(topojson.feature(data, data.objects['p'+id.split('id')[1]]))
         .attr("d", pathf);
