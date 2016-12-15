@@ -30,7 +30,7 @@ a {
 
 body {
   font-family: "PT Serif", serif;
-  background-color: #fcfcfc;
+  background-color: #fff;
   color: #3a3a3a;
   position: relative; }
 
@@ -286,7 +286,8 @@ section h2 {
     text-align: center; }
   .interactive .year-block {
     display: inline-block;
-    margin-right: 2em;
+    margin-right: 1em;
+    margin-left: 1em;
     padding: 0.6em;
     border: 1px solid;
     border-radius: 4px; }
@@ -294,7 +295,8 @@ section h2 {
       margin-bottom: 0; }
     @media (max-width: 450px) {
       .interactive .year-block {
-        margin-right: 1em; } }
+        margin-right: 0.3em;
+        margin-left: 0.3em; } }
   .interactive .year {
     font-weight: bold; }
 
@@ -308,7 +310,25 @@ section h2 {
   cursor: pointer; }
 
 .reset:hover {
-  background-color: #fcfcfc;
+  background-color: #fff;
   color: #262626; }
+
+.route-container {
+  padding-bottom: 2em;
+  border-bottom: solid 1px #eee;
+  padding-top: 2em;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto; }
+  .route-container .title {
+    font-size: 1.3em;
+    margin-bottom: 0.4em;
+    font-weight: bold;
+    color: #48a2d7; }
+  .route-container .route-dist {
+    font-size: 1.1em;
+    margin-bottom: 0.5em; }
+  .route-container .chart {
+    margin: 1em; }
 
 /*# sourceMappingURL=styles.css.map*/

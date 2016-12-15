@@ -6556,7 +6556,7 @@
             16
           ],
           "properties": {
-            "Name": "Directions from Greater Kailash Road, Greater Kailash, New Delhi, Delhi to Outer Circle, Connaught Place, New Delhi, Delhi",
+            "Name": "Kailash Colony to Connaught Place",
             "description": null,
             "timestamp": null,
             "begin": null,
@@ -6599,7 +6599,7 @@
             33
           ],
           "properties": {
-            "Name": "Directions from C Block, Vasant Kunj, New Delhi, Delhi to Connaught Circus, Hanuman Road Area, Connaught Place, New Delhi, Delhi 110001, India",
+            "Name": "Vasant Kunj to Connaught Circus",
             "description": null,
             "timestamp": null,
             "begin": null,
@@ -6696,7 +6696,7 @@
             50
           ],
           "properties": {
-            "Name": "Mayur Vihar Phase 1, Pocket 2 to Pragati Maidan",
+            "Name": "Mayur Vihar Phase 1 to Pragati Maidan",
             "description": null,
             "timestamp": null,
             "begin": null,

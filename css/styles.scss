@@ -1,6 +1,6 @@
 $font: 'PT Serif', serif;
 $block: 'Open Sans', sans-serif;
-$back: #fcfcfc;
+$back: #fff;
 $text: #3a3a3a;
 $nav: #262626;
 $caption: #919194;
@@ -362,7 +362,8 @@ text-align: center;
     }
     .year-block{
         display: inline-block;
-        margin-right: 2em;
+        margin-right: 1em;
+        margin-left: 1em;
         padding: 0.6em;
         border: 1px solid; 
         border-radius: 4px;
@@ -370,7 +371,8 @@ text-align: center;
             margin-bottom: 0;
         }
         @media(max-width: 450px){
-            margin-right: 1em;
+            margin-right: 0.3em;
+        margin-left: 0.3em;
         }
     }
     .year{
@@ -391,4 +393,28 @@ text-align: center;
 .reset:hover{
     background-color: $back;
     color: $nav;
+}
+
+.route-container{
+    .title{
+        font-size: 1.3em;
+        margin-bottom: 0.4em;
+        font-weight: bold;
+        color: $primary;
+    }
+    .route-dist{
+        font-size: 1.1em;
+        margin-bottom: 0.5em;
+    }
+
+    .chart{
+        margin: 1em;
+    }
+
+    padding-bottom: 2em;
+    border-bottom: solid 1px #eee;
+    padding-top: 2em;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
