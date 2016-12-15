@@ -1,7 +1,7 @@
 {
-  "name": "flip-flops",
+  "name": "traffic",
   "version": "1.0.0",
-  "description": "How often has the government gone back on its word.",
+  "description": "Delhi traffic's evolution over time.",
   "main": "webpack.config.js",
   "devDependencies": {
     "css-loader": "^0.23.1",
