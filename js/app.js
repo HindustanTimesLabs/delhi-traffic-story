@@ -253,9 +253,8 @@ d3.json('data/output.json',function(error, data){
                 .attr('class','marker')
 
             transition(id,path);
-
+            UpdateDistanceTimeTag(+id.split('id')[1]);
     }
-
 })
 
 function transition(id,path) {
@@ -273,4 +272,68 @@ return function(i) {
     return "translate(" + p.x + "," + p.y + ")";//Move marker
   }
 }
+}
+
+var delay=500;
+var setIntervalIndex=[];
+function UpdateDistanceTimeTag(index){
+    var counter=[1,1,1];
+    time1=CreateArr(0,maps[index]['data'][0].time,(maps[index]['data'][0].time*60*1000*timefactor)/delay);
+    time2=CreateArr(0,maps[index]['data'][1].time,(maps[index]['data'][1].time*60*1000*timefactor)/delay);
+    time3=CreateArr(0,maps[index]['data'][2].time,(maps[index]['data'][2].time*60*1000*timefactor)/delay);
+    dist1=CreateArr(1,maps[index]['data'][0].dist,(maps[index]['data'][0].time*60*1000*timefactor)/delay);
+    dist2=CreateArr(1,maps[index]['data'][1].dist,(maps[index]['data'][1].time*60*1000*timefactor)/delay);
+    dist3=CreateArr(1,maps[index]['data'][2].dist,(maps[index]['data'][2].time*60*1000*timefactor)/delay);
+
+    setIntervalIndex[(index*3)+0]=window.setInterval(test0,delay)
+    setIntervalIndex[(index*3)+1]=window.setInterval(test1,delay)
+    setIntervalIndex[(index*3)+2]=window.setInterval(test2,delay)
+
+    function test0(){
+        
+
+        if(counter[0]>=time1.length){
+            clearInterval(setIntervalIndex[(index*3)+0]);
+        }else{
+            $($("#id"+index+" .time")[0]).html(time1[counter[0]] + " mins");
+            $($("#id"+index+" .distance")[0]).html(dist1[counter[0]] + " kms");
+            counter[0]=counter[0]+1;
+        }
+    }
+
+    function test1(){     
+        if(counter[1]>=time2.length){
+            clearInterval(setIntervalIndex[(index*3)+1]);
+        }else{
+            $($("#id"+index+" .time")[1]).html(time2[counter[1]] + " mins");
+            $($("#id"+index+" .distance")[1]).html(dist2[counter[1]] + " kms");
+            counter[1]=counter[1]+1;
+        }
+    }
+
+    function test2(){ 
+        if(counter[2]>=time3.length){
+            clearInterval(setIntervalIndex[(index*3)+2]);
+        }else{
+            $($("#id"+index+" .time")[2]).html(time3[counter[2]] + " mins");
+            $($("#id"+index+" .distance")[2]).html(dist3[counter[2]] + " kms");
+            counter[2]=counter[2]+1;
+        }
+    }
+
+    function CreateArr(type,UpperTime,numElem){
+        var arr=[];
+        arr[0]=0;
+        var diff=UpperTime/parseInt(numElem);
+        for(i=1;i<numElem;i++){
+            if(type==0){
+                arr[i]=parseInt(arr[i-1]+diff);
+            }else{
+                arr[i]=parseInt((arr[i-1]+diff)*10)/10;
+            }
+        }
+        arr[arr.length-1]=UpperTime;
+        return arr;
+    }
+
 }
